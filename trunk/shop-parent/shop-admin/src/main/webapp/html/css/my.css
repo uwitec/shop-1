@@ -1,0 +1,73 @@
+body, label, input, button, select, textarea, .uneditable-input,.navbar-search .search-query {font-family: Helvetica, Georgia, Arial, sans-serif, 宋体;font-size: 13px;_font-size: 12px}
+
+/** grid-form */
+table.query{clear:both; width:100%; border-collapse:collapse;table-layout: fixed; word-break:break-all;}
+table.query td{padding:5px; border:1px solid #CCCCCC;}
+table.query .td-label{background:#F4F5F7; text-align:right; width:15%}
+table.query .td-value{width:35%}
+table.query .td-value input{padding:3px; border:1px solid #CCCCCC; width:180px;}
+table.query .td-value select{padding:3px; border:1px solid #CCCCCC; width:185px;}
+
+/**扩展bs */
+.navbar-btn.btn-ss {margin-top: 16px;margin-bottom: 16px}
+.btn-group-xs>.btn .badge, .btn-ss .badge {top: 0;padding: 2px 5px}
+.btn-group-xs>.btn, .btn-ss {padding: 2px 3px;font-size: 12px;line-height: 1;border-radius: 3px;margin-left:3px;margin-right:3px;}
+.todo-list.small-list .btn-ss,
+.todo-list.small-list .btn-group-ss > .btn {border-radius: 5px;font-size: 12px;line-height: 1;padding: 1px 2px 1px 3px;}
+.spinner-buttons.input-group-btn .btn-ss {line-height: 1;}
+span.bg-default{background-color: #c2c2c2;border-color: #c2c2c2;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-primary{background-color: #1ab394;border-color: #1ab394;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-success{background-color: #1c84c6;border-color: #1c84c6;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-info{background-color: #23c6c8;border-color: #23c6c8;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-warning{background-color: #f8ac59;border-color: #f8ac59;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-danger{background-color: #ed5565;border-color: #ed5565;color: #FFF;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid transparent;}
+span.bg-white{background-color: #fff;color: inherit;border-radius: 3px;padding: 0px 5px;display: inline-block;text-align: center;white-space: nowrap;border: 1px solid #e7eaec;}
+
+
+/**覆盖bs */
+.fixed-table-toolbar .bars, .fixed-table-toolbar .columns, .fixed-table-toolbar .search {margin: 5px 0px;}
+
+/** grid */
+.my_gridBody{overflow: hidden;background-color: #fff;}
+.my_gridBox{margin-top: 2px;}
+.my_gridToolBar{margin:3px 0px;border: 1px solid #CCCCCC; padding:3px 7px}
+th:focus {outline: 0px solid transparent;}
+.table .link{color: #4e88f2;}
+.table .link-sep{color: #4e88f2;margin: 0 5px;}
+:link, :visited, ins {text-decoration: none;}
+/** td 内容超出.. grid fix */
+.fix_text{word-break:keep-all; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+/** form */
+.form-horizontal .control-label i {position: absolute;margin-left: -12px;color: #c00;font-weight:600;margin-top:3px;}
+.form-horizontal .vaildError {color: #c00;font-style: normal;margin: 3px 5px 0px 3px;}
+.form-horizontal label {display: inline-block;font-size: 13px;font-weight: 500;}
+.my_infoBox{margin: 3px 0px; display: none;}
+
+/** form - view查看页面 */
+.panel-row{padding: 10px 30px 0px 30px;}
+.panel-heading-style{cursor: pointer; margin-top: 0; font-size: 16px; padding: 8px 10px;}
+.panel-body-table{margin-bottom: 5px;}
+.panel-body-table>tbody>tr>th{text-align: right;padding: 10px;}
+.panel-body-table>thead>tr>th{text-align: right;padding: 10px;}
+.panel-body-table>tbody>tr>td{padding: 10px;}
+.panel-body-table>thead>tr>td{padding: 10px;}
+.toggle-caret{margin: 10px 10px 0px 0px;}
+
+/**文件相关css */
+.webuploader-container {position: relative;}
+.webuploader-element-invisible {position: absolute !important;clip: rect(1px 1px 1px 1px); /* IE6, IE7 */clip: rect(1px,1px,1px,1px);}
+.webuploader-pick {position: relative;display: inline-block;cursor: pointer;background: #00b7ee;padding: 10px 15px;color: #fff;text-align: center;border-radius: 3px;overflow: hidden;}
+.webuploader-pick-hover {background: #00a2d4;}
+.webuploader-pick-disable {opacity: 0.6;pointer-events:none;}
+#uploader-demo .thumbnail {width: 110px;height: 110px;}
+#uploader-demo .thumbnail img {width: 100%;}
+.uploader-list {width: 100%;overflow: hidden;}
+.file-item {float: left;position: relative;margin: 0 20px 20px 0;padding: 4px;border: solid 1px #296CBB;}
+.uploader-list {padding: 5px 0px 0px 5px;width: 100%;overflow: hidden;}
+.file-item {float: left;position: relative;margin: 0 20px 20px 0;padding: 4px;}
+.file-item .error {position: absolute;top: 4px;left: 4px;right: 4px;background: red;color: white;text-align: center;height: 20px;font-size: 14px;line-height: 23px;}
+.file-item .info {position: absolute;left: 4px;bottom: 4px;right: 4px;height: 25px;line-height: 25px;text-indent: 5px;background: rgba(0, 0, 0, 0.6);color: white;overflow: hidden;white-space: nowrap;text-overflow : ellipsis;font-size: 13px;z-index: 100;}
+.upload-state-done:after {content:"\f00c";font-family: FontAwesome;font-style: normal;font-weight: normal;line-height: 1;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;font-size: 32px;position: absolute;bottom: 0;right: 4px;color: #4cae4c;z-index: 99;}
+.file-item .progress {position: absolute;right: 4px;bottom: 4px;height: 3px;left: 4px;height: 4px;overflow: hidden;z-index: 15;margin:0;padding: 0;border-radius: 0;background: transparent;}
+.file-item .progress span {display: block;overflow: hidden;width: 0;height: 100%;background: #d14  repeat-x;-webit-transition: width 200ms linear;-moz-transition: width 200ms linear;-o-transition: width 200ms linear;-ms-transition: width 200ms linear;transition: width 200ms linear;-webkit-animation: progressmove 2s linear infinite;-moz-animation: progressmove 2s linear infinite;-o-animation: progressmove 2s linear infinite;-ms-animation: progressmove 2s linear infinite;animation: progressmove 2s linear infinite;-webkit-transform: translateZ(0);}
