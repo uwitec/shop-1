@@ -40,7 +40,7 @@ public class CategoryRouter extends BaseRouter {
 	@RequestMapping("/goTree")
 	public ModelAndView goTree(){
 	
-		return new ModelAndView("yb/category/category_tree");
+		return new ModelAndView("shop/goods/category/category_tree");
 	}
 
 
@@ -48,7 +48,7 @@ public class CategoryRouter extends BaseRouter {
 	@RequestMapping("/goList")
 	public ModelAndView goList(Integer id){
 
-		return new ModelAndView("yb/category/category_list").addObject("id", id);
+		return new ModelAndView("shop/goods/category/category_list").addObject("id", id);
 	}
 
 	@Auth(code="category:list", name="查询商品分类")
@@ -64,7 +64,7 @@ public class CategoryRouter extends BaseRouter {
 	@RequestMapping("/goSave")
 	public ModelAndView goSave(){
 		
-		return new ModelAndView("yb/category/category_save");
+		return new ModelAndView("shop/goods/category/category_save");
 	}
 
 	@Auth(code="category:save", name="新增商品分类")
@@ -83,7 +83,7 @@ public class CategoryRouter extends BaseRouter {
 		if(id == null || (category = this.categoryService.get(id)) == null ){
 			throw new SysException("查找不到 商品分类 id="+id);
 		}
-		return new ModelAndView("yb/category/category_update").addObject("item", category);
+		return new ModelAndView("shop/goods/category/category_update").addObject("item", category);
 	}
 
 	@Auth(code="category:update", name="更新商品分类")
@@ -103,7 +103,7 @@ public class CategoryRouter extends BaseRouter {
 			throw new SysException("查找不到 商品分类 id="+id);
 		}
 		
-		return new ModelAndView("yb/category/category_view")
+		return new ModelAndView("shop/goods/category/category_view")
 				.addObject("item", category);
 	}
 

@@ -76,7 +76,7 @@
 	</tx:advice>
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="interceptorPointCuts"
-			expression="execution(* org.whale.*.service.*.trans*(..))" />
+					  expression="(execution(* org.whale.*.service.*.trans*(..))) or (execution(* com.wjs.shop..*.service.*.trans*(..)))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
 	</aop:config>
 		

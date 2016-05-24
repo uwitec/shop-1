@@ -39,7 +39,7 @@ public class CategoryAttrValRouter extends BaseRouter {
 	@RequestMapping("/goTree")
 	public ModelAndView goTree(){
 	
-		return new ModelAndView("yb/categoryAttrVal/categoryAttrVal_tree");
+		return new ModelAndView("shop/goods/categoryAttrVal/categoryAttrVal_tree");
 	}
 
 
@@ -47,7 +47,7 @@ public class CategoryAttrValRouter extends BaseRouter {
 	@RequestMapping("/goList")
 	public ModelAndView goList(Long id){
 
-		return new ModelAndView("yb/categoryAttrVal/categoryAttrVal_list").addObject("id", id);
+		return new ModelAndView("shop/goods/categoryAttrVal/categoryAttrVal_list").addObject("id", id);
 	}
 
 	@Auth(code="categoryAttrVal:list", name="查询商品分类属性值")
@@ -63,7 +63,7 @@ public class CategoryAttrValRouter extends BaseRouter {
 	@RequestMapping("/goSave")
 	public ModelAndView goSave(){
 		
-		return new ModelAndView("yb/categoryAttrVal/categoryAttrVal_save");
+		return new ModelAndView("shop/goods/categoryAttrVal/categoryAttrVal_save");
 	}
 
 	@Auth(code="categoryAttrVal:save", name="新增商品分类属性值")
@@ -82,7 +82,7 @@ public class CategoryAttrValRouter extends BaseRouter {
 		if(id == null || (categoryAttrVal = this.categoryAttrValService.get(id)) == null ){
 			throw new SysException("查找不到 商品分类属性值 id="+id);
 		}
-		return new ModelAndView("yb/categoryAttrVal/categoryAttrVal_update").addObject("item", categoryAttrVal);
+		return new ModelAndView("shop/goods/categoryAttrVal/categoryAttrVal_update").addObject("item", categoryAttrVal);
 	}
 
 	@Auth(code="categoryAttrVal:update", name="更新商品分类属性值")
@@ -102,7 +102,7 @@ public class CategoryAttrValRouter extends BaseRouter {
 			throw new SysException("查找不到 商品分类属性值 id="+id);
 		}
 		
-		return new ModelAndView("yb/categoryAttrVal/categoryAttrVal_view")
+		return new ModelAndView("shop/goods/categoryAttrVal/categoryAttrVal_view")
 				.addObject("item", categoryAttrVal);
 	}
 

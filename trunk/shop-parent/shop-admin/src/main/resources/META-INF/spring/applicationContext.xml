@@ -18,7 +18,7 @@
 	
 	<!-- 自动搜索@Component , @Service , @Repository等标注的类 不搜索@Controller的类 -->
 	<!-- 自动扫描组件，这里要把web下面的 controller去除，他们是在springMVC-servlet.xml中配置的，如果不去除会影响事务管理的。 -->
-	<context:component-scan base-package="org.whale" annotation-config="true">
+	<context:component-scan base-package="org.whale,com.wjs.shop" annotation-config="true">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
@@ -89,7 +89,7 @@
 	<bean id="vaildRouterParamAop" class="org.whale.system.spring.VaildRouterParamAop"/>
 	<aop:config proxy-target-class="true">
         <aop:aspect ref="vaildRouterParamAop">
-            <aop:pointcut id="vaildPointcut" expression="execution(* org.whale.*.router.*.*(..))"/>
+            <aop:pointcut id="vaildPointcut" expression="(execution(* org.whale..*.router.*.*(..))) or (execution(* com.wjs.shop..*.router..*(..)))"/>
             
             <aop:before pointcut-ref="vaildPointcut" method="doBefore"/>
         </aop:aspect>

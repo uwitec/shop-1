@@ -16,7 +16,7 @@
 	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->  
 	<aop:aspectj-autoproxy proxy-target-class="true" />  
 
-	<context:component-scan base-package="org.whale" use-default-filters="false">
+	<context:component-scan base-package="org.whale,com.wjs.shop" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
