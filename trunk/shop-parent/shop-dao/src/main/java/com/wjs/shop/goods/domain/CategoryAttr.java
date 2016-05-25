@@ -16,10 +16,15 @@ import org.whale.system.base.BaseEntry;
 @Table(value="g_category_attr", cnName="商品分类属性")
 public class CategoryAttr extends BaseEntry {
 	private static final long serialVersionUID = -1463475363551l;
-	
+
+	/**商品分类ID */
+	public static final String F_categoryId = "categoryId";
+	/**排序 */
+	public static final String F_sort = "sort";
+
 	@Id
 	@Column(name="id", cnName="id")
-	private Long id;
+	private Integer id;
 	
 	@Validate(required=true)
   	@Column(cnName="商品分类ID", name="categoryId")
@@ -39,12 +44,12 @@ public class CategoryAttr extends BaseEntry {
 	
 	
 	/**id */
-	public Long getId(){
+	public Integer getId(){
 		return id;
 	}
 	
 	/**id */
-	public void setId(Long id){
+	public void setId(Integer id){
 		this.id = id;
 	}
 	

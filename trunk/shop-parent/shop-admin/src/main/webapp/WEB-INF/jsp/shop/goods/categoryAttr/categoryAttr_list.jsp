@@ -9,15 +9,10 @@
 
 $(function(){
     $("#gridTable").grid({
-        url :'${ctx}/categoryAttr/doList?id=${id}',
+        url :'${ctx}/categoryAttr/doList?categoryId=${categoryId}',
         idField: 'id',
+        pagination: false,
         columns: [
-            {
-                field: 'chk',
-                checkbox: true,
-                width: '3%',
-                align: 'center'
-            },
 			{
                 field: 'opt',
                 title: '操作',
@@ -26,36 +21,50 @@ $(function(){
                 formatter: function(value, row, index){
                     var strArr = [];
 				<tag:auth authCode="categoryAttr:update">
-                    strArr.push("<a href='javascript:;' class='link' onclick=\"go('修改商品分类属性','${ctx}/categoryAttr/goUpdate?id="+row.id+"')\">修改</a>");
+                    strArr.push("<a href='javascript:;' class='link' onclick=\"go('修改分类属性','${ctx}/categoryAttr/goUpdate?id="+row.id+"')\">修改</a>");
 				</tag:auth>
+                <tag:auth authCode="category:del">
+                    strArr.push('<span class="link-sep">|</span>')
+                    strArr.push("<a href='javascript:;' class='link' onclick=\"del("+row.id+")\">删除</a>");
+                </tag:auth>
 					return strArr.join("");
                 }
             },
 			{
-				field: 'id',
-                title: 'id',
-                width: '10%'
-			},
-			{
-				field: 'categoryId',
-                title: '商品分类ID',
-                width: '10%'
-			},
-			{
 				field: 'attrName',
                 title: '属性名称',
-                width: '10%'
+                width: '120px'
 			},
+            {
+                field: 'attrVals',
+                title: '属性值'
+            },
 			{
 				field: 'searchFlag',
-                title: '是否搜索项',
-                width: '10%'
+                title: '搜索项',
+                align: "center",
+                width: '100px',
+                formatter: function(value, row, index){
+                    return value ? '<span class="label label-success">是</span>' : '<span class="label label-default">否</span>';
+                }
 			},
-			{
-				field: 'sort',
+            {
+                field: 'sort',
                 title: '排序',
-                width: '10%'
-			}
+                width: '75px',
+                formatter: function(value, row, index){
+                    var strArr = [];
+                    <tag:auth authCode="category:move">
+                    strArr.push('<span class="link-sep">'+value+'</span>')
+                    if(index != 0){
+                        strArr.push("<div class='pull-right'><a href='javascript:;' class='link' onclick=\"move("+row.id+", false)\"><i class='fa fa-arrow-up'></i></a>");
+                    }
+                    strArr.push('<span class="link-sep">&nbsp;</span>')
+                    strArr.push("<a href='javascript:;' class='link' onclick=\"move("+row.id+", true)\"><i class='fa fa-arrow-down'></i></a></div>");
+                    </tag:auth>
+                    return strArr.join("");
+                }
+            }
 		]
     });
 });
@@ -64,7 +73,7 @@ function del(id){
     $.del({url:"${ctx}/categoryAttr/doDel"});
 }
 function view(id){
-    $.openWin({url: "${ctx}/categoryAttr/goView?id="+id, title:"查看商品分类属性"});
+    $.openWin({url: "${ctx}/categoryAttr/goView?id="+id, title:"查看分类属性"});
 }
 </script>
 </head>
@@ -78,11 +87,18 @@ function view(id){
 			</table>
     </form>
     <div id="mytoolbar" style="margin-left:5px;">
+        <ol class="breadcrumb" style="line-height: normal;margin-bottom: 0px;">
+            <c:forEach items="${parents}" var="item" varStatus="itemIndex">
+                <c:if test="${itemIndex.index < lastIndex}">
+                    <li><a href="javascript:window.parent.location.href='${ctx}/category/goTree?selId=${item.id}';">${item.name}</a></li>
+                </c:if>
+                <c:if test="${itemIndex.index == lastIndex}">
+                    <li class="active">${item.name}</li>
+                </c:if>
+            </c:forEach>
+        </ol>
         <tag:auth authCode="categoryAttr:save">
-        <button type="button" class="btn btn-primary btn-sm" onclick="go('新增商品分类属性','${ctx}/categoryAttr/goSave')"><i class="fa fa-plus"></i> 新 增 </button>
-        </tag:auth>
-        <tag:auth authCode="categoryAttr:del">
-		<button type="button" class="btn btn-danger btn-sm" onclick="del()"><i class="fa fa-trash-o"></i> 删  除</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="go('新增分类属性','${ctx}/categoryAttr/goSave')"><i class="fa fa-plus"></i> 新增分类属性 </button>
         </tag:auth>
     </div>
     <div id="gridDiv" style="overflow-y: auto;overflow-x: hidden;">

@@ -24,6 +24,7 @@ CREATE TABLE `g_category` (
   `pid` mediumint(9) NOT NULL COMMENT '父类别',
   `name` varchar(32) NOT NULL COMMENT '类别名称',
   `showFlag` bit(1) NOT NULL COMMENT '是否显示',
+  `goodsFlag` bit(1) NOT NULL COMMENT '是否可挂商品',
   `sort` tinyint(4) NOT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品分类';

@@ -1,19 +1,12 @@
 package com.wjs.shop.goods.service;
 
-import java.util.List;
-import java.util.Date;
-
+import com.wjs.shop.goods.dao.CategoryAttrValDao;
+import com.wjs.shop.goods.domain.CategoryAttrVal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.whale.system.common.util.LangUtil;
-import org.whale.system.common.util.Strings;
-
 import org.whale.system.base.BaseDao;
 import org.whale.system.base.Page;
 import org.whale.system.service.BaseService;
-import com.wjs.shop.goods.dao.CategoryAttrValDao;
-import com.wjs.shop.goods.domain.CategoryAttrVal;
 
 /**
  * 商品分类属性值管理
@@ -29,7 +22,7 @@ public class CategoryAttrValService extends BaseService<CategoryAttrVal, Long> {
 	
 
 	public void queryPage(Page page, CategoryAttrVal categoryAttrVal){
-		page.newCmd(CategoryAttrVal.class);
+		page.newQ(CategoryAttrVal.class);
 		
 		this.queryPage(page);
 	}

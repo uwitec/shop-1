@@ -13,29 +13,25 @@ function save(){
 $(function() {
 	$("#dataForm").validate({
 		rules: {
-			"id": {
-				required: true,
-				
-			},
-			"pid": {
-				required: true,
-				
-			},
 			"name": {
 				required: true,
 				validIllegalChar: true
 			},
-			"showFlag": {
-				required: true,
-				
-			},
 			"sort": {
-				required: true,
-				
+				required: true
 			}
 		}
 	});
 });
+
+function addRoot(){
+	zNodes_pid.push({id:0, name:"商品分类", pid: -1, open: true, isParent: true});
+}
+
+function filterSelf(){
+	var self = zTree_pid.getNodeByParam("id", ${item.id});
+	zTree_pid.removeNode(self);
+}
 
 </script>
 </head>
@@ -47,15 +43,9 @@ $(function() {
         <form class="form-horizontal m-t" id="dataForm">
 			<input type="hidden" id="id" name="id" value="${item.id}" />
 			<div class="form-group">
-                <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>主键：</label>
+                <label class="col-sm-3 col-md-2 col-lg-1 control-label">父类别：</label>
                 <div class="col-sm-9 col-md-10 col-lg-11 form-inline input-group" style="padding-left:0px;">
-						<input type="text" id="id" name="id" value="${item.id}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
-				</div>
-			</div>
-			<div class="form-group">
-                <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>父类别：</label>
-                <div class="col-sm-9 col-md-10 col-lg-11 form-inline input-group" style="padding-left:0px;">
-						<input type="text" id="pid" name="pid" value="${item.pid}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
+					<tag:tree id="pid" nodes="${nodes}" nodeId="id" nodePId="pid" nodeName="name" beforeLoadTree="addRoot" afterLoadTree="filterSelf" value="${item.pid}" showCleanBut="false"></tag:tree>
 				</div>
 			</div>
 			<div class="form-group">
@@ -65,9 +55,21 @@ $(function() {
 				</div>
 			</div>
 			<div class="form-group">
-                <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>是否显示：</label>
-                <div class="col-sm-9 col-md-10 col-lg-11 form-inline input-group" style="padding-left:0px;">
-						<input type="text" id="showFlag" name="showFlag" value="${item.showFlag}"  class="form-control" style="width:250px" />
+				<label class="col-sm-3 col-md-2 col-lg-1 control-label">是否显示：</label>
+				<div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
+					<select id="showFlag" name="showFlag" style="width:250px">
+						<option value="1" <c:if test="${item.showFlag}">selected</c:if> >是</option>
+						<option value="0" <c:if test="${!item.showFlag}">selected</c:if> >否</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 col-md-2 col-lg-1 control-label">是否可挂商品：</label>
+				<div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
+					<select id="goodsFlag" name="goodsFlag" style="width:250px">
+						<option value="0" <c:if test="${!item.goodsFlag}">selected</c:if> >否</option>
+						<option value="1" <c:if test="${item.goodsFlag}">selected</c:if> >是</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

@@ -1,14 +1,12 @@
 package com.wjs.shop.goods.domain;
 
 
-import org.whale.system.annotation.jdbc.Column;
-import org.whale.system.annotation.jdbc.Id;
-import org.whale.system.annotation.jdbc.Table;
-import org.whale.system.annotation.jdbc.Validate;
+import org.whale.system.annotation.jdbc.*;
 import org.whale.system.base.BaseEntry;
 
 /**
  * 商品分类
+ * 最多3级
  *
  * @author wjs
  * @Date 2016-5-17
@@ -16,24 +14,34 @@ import org.whale.system.base.BaseEntry;
 @Table(value="g_category", cnName="商品分类")
 public class Category extends BaseEntry {
 	private static final long serialVersionUID = -1463470772710l;
+
+	/**父类别 */
+	public static final String F_pid = "pid";
+	/**排序 */
+	public static final String F_sort = "sort";
+	/**是否可挂商品 */
+	public static final String F_goodsFlag = "goodsFlag";
+
 	
 	@Id
 	@Column(name="id", cnName="主键")
 	private Integer id;
-	
-	@Validate(required=true)
+
   	@Column(cnName="父类别", name="pid")
 	private Integer pid;
 	
 	@Validate(required=true)
-  	@Column(cnName="类别名称", name="name")
+  	@Column(cnName="类别名称", name="name", unique = true)
 	private String name;
-	
-	@Validate(required=true)
+
   	@Column(cnName="是否显示", name="showFlag")
 	private Boolean showFlag;
-	
-	@Validate(required=true)
+
+	@Column(cnName="是否可挂商品", name="goodsFlag")
+	private Boolean goodsFlag;
+
+	@Validate(required=true, limit = {0, 255})
+	@Order
   	@Column(cnName="排序", name="sort")
 	private Integer sort;
 	
@@ -88,4 +96,13 @@ public class Category extends BaseEntry {
 		this.sort = sort;
 	}
 
+	/**是否可挂商品 */
+	public Boolean getGoodsFlag() {
+		return goodsFlag;
+	}
+
+	/**是否可挂商品 */
+	public void setGoodsFlag(Boolean goodsFlag) {
+		this.goodsFlag = goodsFlag;
+	}
 }

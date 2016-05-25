@@ -35,18 +35,23 @@
                 if (treeNode.isParent) {
                     zTree.expandNode(treeNode, true);
                 }
-                $("#listFrame").attr("src", "${ctx}/category/goList?id="+treeNode.id);
+                $("#listFrame").attr("src", "${ctx}/category/goRouter?selId="+treeNode.id);
                 return true;
             }
         }
     };
 
-    var zNodes ="${nodes};
+    var zNodes = ${nodes};
     $(document).ready(function(){
+        zNodes.push({id:0, name:"商品分类", pid: -1, open: true, isParent: true});
         $("#treeDiv, #listFrame").height($.h());
         zTree = $.fn.zTree.init($("#tree"), setting, zNodes);
-        var root = zTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
-        zTree.expandNode(root, true);
+
+        <c:if test="${!empty selId}">
+        var selNode = zTree.getNodeByParam("id", ${selId});
+        zTree.selectNode(selNode);
+        zTree.expandNode(selNode, true);
+        </c:if>
     });
 
     function getNode(id){
@@ -56,12 +61,13 @@
 </head>
 <body>
 <div class="container-fluid">
+
     <div class="row">
         <div class="col-xs-2" id="treeDiv" style="padding: 0px 5px 0px 0px;overflow: auto;">
             <div id="tree" class="ztree"></div>
         </div>
         <div class="col-xs-10" id="frameDiv" style="padding: 0px;overflow: hidden;">
-            <iframe id="listFrame" name="listFrame" frameborder=0 scrolling=auto width=100% src="${ctx}/category/goList"></iframe>
+            <iframe id="listFrame" name="listFrame" frameborder=0 scrolling=auto width=100% src="${ctx}/category/goRouter?selId=${selId}"></iframe>
         </div>
     </div>
 </div>

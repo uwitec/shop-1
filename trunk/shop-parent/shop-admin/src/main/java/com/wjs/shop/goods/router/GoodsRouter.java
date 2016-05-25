@@ -1,26 +1,21 @@
 package com.wjs.shop.goods.router;
 
-import java.util.List;
-
+import com.wjs.shop.goods.domain.Goods;
+import com.wjs.shop.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import org.whale.system.base.Cmd;
+import org.whale.system.annotation.auth.Auth;
+import org.whale.system.base.BaseRouter;
 import org.whale.system.base.Page;
 import org.whale.system.base.Rs;
-import org.whale.system.base.BaseRouter;
-import org.whale.system.annotation.auth.Auth;
-import org.whale.system.common.exception.OrmException;
 import org.whale.system.common.exception.SysException;
 import org.whale.system.common.util.ListUtil;
 import org.whale.system.common.util.Strings;
-import org.whale.system.common.util.WebUtil;
 
-import com.wjs.shop.goods.service.GoodsService;
-import com.wjs.shop.goods.domain.Goods;
+import java.util.List;
 
 /**
  * 商品控制器

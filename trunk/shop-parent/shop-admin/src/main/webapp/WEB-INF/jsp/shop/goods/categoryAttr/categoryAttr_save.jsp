@@ -14,25 +14,12 @@ function save(){
 $(function() {
 	$("#dataForm").validate({
 		rules: {
-			"id": {
-                required: true,
-				
-			},
-			"categoryId": {
-                required: true,
-				
-			},
 			"attrName": {
                 required: true,
 				validIllegalChar: true
 			},
-			"searchFlag": {
-                required: true,
-				
-			},
 			"sort": {
-                required: true,
-				
+                required: true
 			}
 		}
 	});
@@ -47,15 +34,10 @@ $(function() {
     <div class="row">
         <form class="form-horizontal m-t" id="dataForm">
         <div class="form-group">
-            <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>id：</label>
-            <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
-                <input type="text" id="id" name="id" value="${item.id}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>商品分类ID：</label>
             <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
-                <input type="text" id="categoryId" name="categoryId" value="${item.categoryId}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
+                <input type="hidden" id="categoryId" name="categoryId" value="${category.id}" />
+                ${category.name}
             </div>
         </div>
         <div class="form-group">
@@ -65,15 +47,18 @@ $(function() {
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>是否搜索项：</label>
+            <label class="col-sm-3 col-md-2 col-lg-1 control-label">是否搜索项：</label>
             <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
-                <input type="text" id="searchFlag" name="searchFlag" value="${item.searchFlag}"  class="form-control" style="width:250px" />
+                <select id="searchFlag" name="searchFlag" style="width:250px">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>排序：</label>
             <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
-                <input type="text" id="sort" name="sort" value="${item.sort}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
+                <input type="text" id="sort" name="sort" value="${nextSort}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
             </div>
         </div>
         <div class="form-group" style="border-bottom:0px;margin-top:20px;">
