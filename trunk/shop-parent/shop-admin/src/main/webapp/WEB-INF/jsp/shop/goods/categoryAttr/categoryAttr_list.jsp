@@ -98,7 +98,7 @@ function view(id){
             </c:forEach>
         </ol>
         <tag:auth authCode="categoryAttr:save">
-        <button type="button" class="btn btn-primary btn-sm" onclick="go('新增分类属性','${ctx}/categoryAttr/goSave')"><i class="fa fa-plus"></i> 新增分类属性 </button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="go('新增分类属性','${ctx}/categoryAttr/goSave?categoryId=${categoryId}')"><i class="fa fa-plus"></i> 新增分类属性 </button>
         </tag:auth>
     </div>
     <div id="gridDiv" style="overflow-y: auto;overflow-x: hidden;">

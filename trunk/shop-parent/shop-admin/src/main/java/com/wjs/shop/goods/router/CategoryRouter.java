@@ -20,7 +20,6 @@ import org.whale.system.common.util.ListUtil;
 import org.whale.system.common.util.Strings;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

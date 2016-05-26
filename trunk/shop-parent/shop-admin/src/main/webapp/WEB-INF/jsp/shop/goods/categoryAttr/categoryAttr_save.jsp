@@ -24,6 +24,23 @@ $(function() {
 		}
 	});
 });
+
+
+    function addRow(i){
+        var rowHtml = '<div id="row_'+i+'" class="col-sm-9 col-md-10 col-lg-11 col-sm-offset-3 col-md-offset-2 col-lg-offset-1 form-inline"  style="padding-left:0px;margin-top: 5px;">' +
+                        '<input type="text" name="attrVal" class="form-control" style="width:250px" placeholder="属性值" />' +
+                        '<input type="text" name="attrValSort" class="form-control" style="width:50px" placeholder="排序" />' +
+                        '<a href="javascript:addRow('+(i+1)+');" ><i class="fa fa-minus-square"></i></a>' +
+                        '<a href="javascript:delRow('+i+');" style="display: none;" ><i class="fa fa-minus-square"></i></a>' +
+                    '</div>';
+
+        $("#attrValRow").append(rowHtml);
+    }
+
+    function delRow(i){
+        $("#row_"+id).remove();
+        return false;
+    }
 </script>
 
 </head>
@@ -34,7 +51,7 @@ $(function() {
     <div class="row">
         <form class="form-horizontal m-t" id="dataForm">
         <div class="form-group">
-            <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>商品分类ID：</label>
+            <label class="col-sm-3 col-md-2 col-lg-1 control-label">所属商品分类：</label>
             <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
                 <input type="hidden" id="categoryId" name="categoryId" value="${category.id}" />
                 ${category.name}
@@ -59,6 +76,21 @@ $(function() {
             <label class="col-sm-3 col-md-2 col-lg-1 control-label"><i>*</i>排序：</label>
             <div class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
                 <input type="text" id="sort" name="sort" value="${nextSort}" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" style="width:250px" />
+            </div>
+        </div>
+        <div class="form-group" id="attrValRow">
+            <label class="col-sm-3 col-md-2 col-lg-1 control-label">属性值：</label>
+            <div id="row_0" class="col-sm-9 col-md-10 col-lg-11 form-inline"  style="padding-left:0px;">
+                <input type="text" name="attrVal" class="form-control" style="width:250px" placeholder="属性值"/>
+                <input type="text" name="attrValSort" class="form-control" style="width:50px" placeholder="排序" />
+                <a href="javascript:;"><i class="fa fa fa-plus-square"></i></a>
+                <a href="javascript:;"><i class="fa fa-minus-square"></i></a>
+            </div>
+            <div class="col-sm-9 col-md-10 col-lg-11 col-sm-offset-3 col-md-offset-2 col-lg-offset-1 form-inline"  style="padding-left:0px;margin-top: 5px;">
+                <input type="text" name="attrVal" class="form-control" style="width:250px" placeholder="属性值" />
+                <input type="text" name="attrValSort" class="form-control" style="width:50px" placeholder="排序" />
+                <a href="javascript:;"><i class="fa fa fa-plus-square"></i></a>
+                <a href="javascript:;" ><i class="fa fa-minus-square"></i></a>
             </div>
         </div>
         <div class="form-group" style="border-bottom:0px;margin-top:20px;">

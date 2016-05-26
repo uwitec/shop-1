@@ -22,7 +22,7 @@ public class CategoryAttrService extends BaseService<CategoryAttr, Integer> {
 	
 
 	public void queryPage(Page page, Integer categoryId){
-		page.newQ(CategoryAttr.class).selectAppend(", (SELECT group_concat(a.`val`) from g_category_attr_val v where v.categoryAttrId = t.id ORDER BY v.sort asc) as attrVals").eq(CategoryAttr.F_categoryId, categoryId).asc(CategoryAttr.F_sort);
+		page.newQ(CategoryAttr.class).selectAppend(", (SELECT group_concat(v.val) from g_category_attr_val v where v.categoryAttrId = t.id ORDER BY v.sort asc) as attrVals").eq(CategoryAttr.F_categoryId, categoryId).asc(CategoryAttr.F_sort);
 		
 		this.queryPage(page);
 	}

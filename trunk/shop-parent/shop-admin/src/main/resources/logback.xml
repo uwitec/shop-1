@@ -91,14 +91,10 @@
 
 
 	<!-- addtivity:是否向上级loger传递打印信息,可能照成重复打印 默认是true -->
-	<logger name="org.whale.system.jdbc" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="ormLog" />
-	</logger>
-	<logger name="org.whale" additivity="false">
-		<level value="INFO" />
+	<logger name="org.whale.system" additivity="false">
+		<level value="debug" />
 		<appender-ref ref="consoleAppender" />
-		<appender-ref ref="whaleLog" />
+		<appender-ref ref="ormLog" />
 	</logger>
 	<root>
 		<level value="INFO" />

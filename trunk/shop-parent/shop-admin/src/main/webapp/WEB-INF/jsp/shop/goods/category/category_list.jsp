@@ -46,7 +46,7 @@
                 title: '类别属性',
                 formatter: function(value, row, index){
                     if(value){
-                        return "<a href=\"javascript:window.parent.location.href='${ctx}/categoryAttr/goList?categoryId="+row.id+"';\" class='link'>"+value+"</a>";
+                        return "<a href=\"javascript:window.parent.location.href='${ctx}/category/goTree?selId="+row.id+"';\" class='link'>"+value+"</a>";
                     }else{
                         return "";
                     }
