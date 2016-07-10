@@ -27,4 +27,14 @@ public class CategoryAttrDao extends BaseDao<CategoryAttr, Integer> {
         }
         return maxSort+1;
     }
+
+    /**
+     * 属性名是否重复
+     * @param categoryId
+     * @param attrName
+     * @return
+     */
+    public boolean containAttrName(Integer categoryId, String attrName){
+        return this.count(this.q().eq(CategoryAttr.F_categoryId, categoryId).eq(CategoryAttr.F_attrName, attrName.trim())) > 0;
+    }
 }

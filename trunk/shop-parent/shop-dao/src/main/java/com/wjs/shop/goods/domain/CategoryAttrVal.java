@@ -1,10 +1,7 @@
 package com.wjs.shop.goods.domain;
 
 
-import org.whale.system.annotation.jdbc.Column;
-import org.whale.system.annotation.jdbc.Id;
-import org.whale.system.annotation.jdbc.Table;
-import org.whale.system.annotation.jdbc.Validate;
+import org.whale.system.annotation.jdbc.*;
 import org.whale.system.base.BaseEntry;
 
 /**
@@ -16,41 +13,47 @@ import org.whale.system.base.BaseEntry;
 @Table(value="g_category_attr_val", cnName="商品分类属性值")
 public class CategoryAttrVal extends BaseEntry {
 	private static final long serialVersionUID = -1463475444724l;
-	
+
+	/** 分类属性ID */
+	public static final String F_categoryAttrId = "categoryAttrId";
+	/** 排序 */
+	public static final String F_sort = "sort";
+
 	@Id
 	@Column(name="id", cnName="id")
-	private Long id;
+	private Integer id;
 	
 	@Validate(required=true)
   	@Column(cnName="分类属性ID", name="categoryAttrId")
-	private Long categoryAttrId;
+	private Integer categoryAttrId;
 	
 	@Validate(required=true)
   	@Column(cnName="属性值", name="val")
 	private String val;
-	
+
+	@Order
 	@Validate(required=true)
   	@Column(cnName="排序", name="sort")
 	private Integer sort;
 	
 	
 	/**id */
-	public Long getId(){
+	public Integer getId(){
 		return id;
 	}
 	
 	/**id */
-	public void setId(Long id){
+	public void setId(Integer id){
 		this.id = id;
 	}
 	
 	/**分类属性ID */
-	public Long getCategoryAttrId(){
+	public Integer getCategoryAttrId(){
 		return categoryAttrId;
 	}
 	
 	/**分类属性ID */
-	public void setCategoryAttrId(Long categoryAttrId){
+	public void setCategoryAttrId(Integer categoryAttrId){
 		this.categoryAttrId = categoryAttrId;
 	}
 	

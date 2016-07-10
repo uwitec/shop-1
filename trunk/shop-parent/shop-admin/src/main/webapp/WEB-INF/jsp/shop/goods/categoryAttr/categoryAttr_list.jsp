@@ -75,6 +75,16 @@ function del(id){
 function view(id){
     $.openWin({url: "${ctx}/categoryAttr/goView?id="+id, title:"查看分类属性"});
 }
+
+function move(id, downFlag){
+    $.get("${ctx}/categoryAttr/doMove?id="+id+"&downFlag="+downFlag, function(obj){
+        if(obj.rs){
+            refresh();
+        }else{
+            $.alert("移动顺序失败："+obj.msg);
+        }
+    });
+}
 </script>
 </head>
 

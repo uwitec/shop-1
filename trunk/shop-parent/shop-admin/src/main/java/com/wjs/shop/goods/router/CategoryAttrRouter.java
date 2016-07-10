@@ -1,8 +1,10 @@
 package com.wjs.shop.goods.router;
 
 import com.wjs.shop.goods.dao.CategoryAttrDao;
+import com.wjs.shop.goods.dao.CategoryAttrValDao;
 import com.wjs.shop.goods.domain.Category;
 import com.wjs.shop.goods.domain.CategoryAttr;
+import com.wjs.shop.goods.domain.CategoryAttrVal;
 import com.wjs.shop.goods.service.CategoryAttrService;
 import com.wjs.shop.goods.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.whale.system.annotation.auth.Auth;
+import org.whale.system.annotation.jdbc.Validate;
 import org.whale.system.base.BaseRouter;
 import org.whale.system.base.Page;
 import org.whale.system.base.Rs;
@@ -19,7 +22,10 @@ import org.whale.system.common.exception.SysException;
 import org.whale.system.common.util.ListUtil;
 import org.whale.system.common.util.Strings;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 商品分类属性控制器
@@ -33,6 +39,8 @@ public class CategoryAttrRouter extends BaseRouter {
 
 	@Autowired
 	private CategoryAttrDao categoryAttrDao;
+	@Autowired
+	private CategoryAttrValDao categoryAttrValDao;
 	@Autowired
 	private CategoryAttrService categoryAttrService;
 	@Autowired
@@ -78,9 +86,28 @@ public class CategoryAttrRouter extends BaseRouter {
 	@Auth(code="categoryAttr:save", name="新增商品分类属性")
 	@ResponseBody
 	@RequestMapping("/doSave")
-	public Rs doSave(CategoryAttr categoryAttr){
-	
-		this.categoryAttrService.save(categoryAttr);
+	public Rs doSave(@Validate CategoryAttr categoryAttr, String[] attrVal, Integer[] attrValSort){
+		if (this.categoryAttrDao.containAttrName(categoryAttr.getCategoryId(), categoryAttr.getAttrName())){
+			return Rs.fail("商品分类属性名称["+categoryAttr.getAttrName()+"]已存在");
+		}
+
+		if (attrVal != null && attrVal.length > 0){
+			List<CategoryAttrVal> vals = new ArrayList<CategoryAttrVal>(attrVal.length);
+			Set<String> valSet = new HashSet<String>(attrVal.length);
+			CategoryAttrVal categoryAttrVal = null;
+			for (int i=0; i< attrVal.length; i++){
+				if (Strings.isNotBlank(attrVal[i]) && !valSet.contains(attrVal[i].trim())){
+					categoryAttrVal = new CategoryAttrVal();
+					categoryAttrVal.setVal(attrVal[i].trim());
+					categoryAttrVal.setSort(attrValSort[i] == null ? 0 : attrValSort[i]);
+					vals.add(categoryAttrVal);
+					valSet.add(attrVal[i].trim());
+				}
+			}
+			categoryAttr.setCategoryAttrValList(vals);
+		}
+
+		this.categoryAttrService.transSave(categoryAttr);
 		return Rs.success();
 	}
 
@@ -91,15 +118,50 @@ public class CategoryAttrRouter extends BaseRouter {
 		if(id == null || (categoryAttr = this.categoryAttrService.get(id)) == null ){
 			throw new SysException("查找不到 商品分类属性 id="+id);
 		}
-		return new ModelAndView("shop/goods/categoryAttr/categoryAttr_update").addObject("item", categoryAttr);
+		Category category = this.categoryService.get(categoryAttr.getCategoryId());
+		if (category == null){
+			throw new BusinessException("商品分类["+categoryAttr.getCategoryId()+"]不存在");
+		}
+		categoryAttr.setCategory(category);
+		categoryAttr.setCategoryAttrValList(this.categoryAttrValDao.queryByAttrId(id));
+
+		return new ModelAndView("shop/goods/categoryAttr/categoryAttr_update")
+				.addObject("item", categoryAttr)
+				.addObject("maxValNum", categoryAttr.getCategoryAttrValList() == null ? 0 :categoryAttr.getCategoryAttrValList().size());
 	}
 
 	@Auth(code="categoryAttr:update", name="更新商品分类属性")
 	@ResponseBody
 	@RequestMapping("/doUpdate")
-	public Rs doUpdate(CategoryAttr categoryAttr){
+	public Rs doUpdate(@Validate CategoryAttr categoryAttr, String[] attrVal, Integer[] attrValSort){
+		CategoryAttr dbCategoryAttr = this.categoryAttrDao.get(categoryAttr.getId());
+		if (dbCategoryAttr == null){
+			return Rs.fail("商品分类属性不存在");
+		}
+		if (!dbCategoryAttr.getAttrName().equals(categoryAttr.getAttrName().trim())){
+			if (this.categoryAttrDao.containAttrName(categoryAttr.getCategoryId(), categoryAttr.getAttrName())){
+				return Rs.fail("商品分类属性名称["+categoryAttr.getAttrName()+"]已存在");
+			}
+		}
+
+		if (attrVal != null && attrVal.length > 0){
+			List<CategoryAttrVal> vals = new ArrayList<CategoryAttrVal>(attrVal.length);
+			Set<String> valSet = new HashSet<String>(attrVal.length);
+			CategoryAttrVal categoryAttrVal = null;
+			for (int i=0; i< attrVal.length; i++){
+				if (Strings.isNotBlank(attrVal[i]) && !valSet.contains(attrVal[i].trim())){
+					categoryAttrVal = new CategoryAttrVal();
+					categoryAttrVal.setCategoryAttrId(categoryAttr.getId());
+					categoryAttrVal.setVal(attrVal[i].trim());
+					categoryAttrVal.setSort(attrValSort[i] == null ? 0 : attrValSort[i]);
+					vals.add(categoryAttrVal);
+					valSet.add(attrVal[i].trim());
+				}
+			}
+			categoryAttr.setCategoryAttrValList(vals);
+		}
 	
-		this.categoryAttrService.update(categoryAttr);
+		this.categoryAttrService.transUpdate(categoryAttr);
 		return Rs.success();
 	}
 
@@ -110,6 +172,12 @@ public class CategoryAttrRouter extends BaseRouter {
 		if(categoryAttr == null){
 			throw new SysException("查找不到 商品分类属性 id="+id);
 		}
+		Category category = this.categoryService.get(categoryAttr.getCategoryId());
+		if (category == null){
+			throw new BusinessException("商品分类["+categoryAttr.getCategoryId()+"]不存在");
+		}
+		categoryAttr.setCategory(category);
+		categoryAttr.setCategoryAttrValList(this.categoryAttrValDao.queryByAttrId(id));
 		
 		return new ModelAndView("shop/goods/categoryAttr/categoryAttr_view")
 				.addObject("item", categoryAttr);
@@ -125,7 +193,16 @@ public class CategoryAttrRouter extends BaseRouter {
 		List<Integer> idList = ListUtil.intList(ids);
 		this.categoryAttrService.deleteBatch(idList);
 
-		return Rs.success("["+idList.size()+"]条记录删除成功");
+		return Rs.success("[" + idList.size() + "]条记录删除成功");
 	}
 
+	@Auth(code="categoryAttr:move", name="修改商品分类属性排序")
+	@ResponseBody
+	@RequestMapping("/doMove")
+	public Rs doMove(Integer id, boolean downFlag){
+
+		this.categoryAttrService.transMove(id, downFlag);
+
+		return Rs.success();
+	}
 }

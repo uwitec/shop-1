@@ -15,7 +15,7 @@ import org.whale.system.service.BaseService;
  * 2016-5-17 16:57:24
  */
 @Service
-public class CategoryAttrValService extends BaseService<CategoryAttrVal, Long> {
+public class CategoryAttrValService extends BaseService<CategoryAttrVal, Integer> {
 
 	@Autowired
 	private CategoryAttrValDao categoryAttrValDao;
@@ -28,7 +28,7 @@ public class CategoryAttrValService extends BaseService<CategoryAttrVal, Long> {
 	}
 
 	@Override
-	public BaseDao<CategoryAttrVal, Long> getDao() {
+	public BaseDao<CategoryAttrVal, Integer> getDao() {
 		return categoryAttrValDao;
 	}
 

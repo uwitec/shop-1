@@ -1,11 +1,10 @@
 package com.wjs.shop.goods.domain;
 
 
-import org.whale.system.annotation.jdbc.Column;
-import org.whale.system.annotation.jdbc.Id;
-import org.whale.system.annotation.jdbc.Table;
-import org.whale.system.annotation.jdbc.Validate;
+import org.whale.system.annotation.jdbc.*;
 import org.whale.system.base.BaseEntry;
+
+import java.util.List;
 
 /**
  * 商品分类属性
@@ -19,6 +18,8 @@ public class CategoryAttr extends BaseEntry {
 
 	/**商品分类ID */
 	public static final String F_categoryId = "categoryId";
+	/**属性名称 */
+	public static final String F_attrName = "attrName";
 	/**排序 */
 	public static final String F_sort = "sort";
 
@@ -41,6 +42,12 @@ public class CategoryAttr extends BaseEntry {
 	@Validate(required=true)
   	@Column(cnName="排序", name="sort")
 	private Integer sort;
+
+	@UnColumn
+	private Category category;
+
+	@UnColumn
+	private List<CategoryAttrVal> categoryAttrValList;
 	
 	
 	/**id */
@@ -93,4 +100,19 @@ public class CategoryAttr extends BaseEntry {
 		this.sort = sort;
 	}
 
+	public List<CategoryAttrVal> getCategoryAttrValList() {
+		return categoryAttrValList;
+	}
+
+	public void setCategoryAttrValList(List<CategoryAttrVal> categoryAttrValList) {
+		this.categoryAttrValList = categoryAttrValList;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

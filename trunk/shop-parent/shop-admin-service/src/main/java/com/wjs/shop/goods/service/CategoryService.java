@@ -49,7 +49,7 @@ public class CategoryService extends BaseService<Category, Integer> {
 
 	public void queryPage(Page page, Integer pid, Boolean goodsFlag){
 		if (goodsFlag){
-			page.newQ(Category.class).selectAppend(", (SELECT group_concat(a.`attrName`) from g_category_attr a where a.categoryId = t.id  ORDER BY a.sort asc) as attrs").eq(Category.F_pid, pid == null ? 0 : pid).asc(Category.F_sort);
+			page.newQ(Category.class).select().selectWrap(", (SELECT group_concat(a.`attrName`) from g_category_attr a where a.categoryId = t.id  ORDER BY a.sort asc) as attrs").eq(Category.F_pid, pid == null ? 0 : pid).asc(Category.F_sort);
 		}else{
 			page.newQ(Category.class).eq(Category.F_pid, pid == null ? 0 : pid).asc(Category.F_sort);
 		}
@@ -129,9 +129,9 @@ public class CategoryService extends BaseService<Category, Integer> {
 
 		Q q = null;
 		if (downFlag){
-			q = Q.newQ(Category.class).eq(Category.F_pid, category.getPid()).and(Category.F_sort, ">",category.getSort()).limit(0, 1);
+			q = Q.newQ(Category.class).eq(Category.F_pid, category.getPid()).gt(Category.F_sort, category.getSort()).asc(Category.F_sort).limit(0, 1);
 		} else {
-			q = Q.newQ(Category.class).eq(Category.F_pid, category.getPid()).and(Category.F_sort, "<",category.getSort()).limit(0, 1);
+			q = Q.newQ(Category.class).eq(Category.F_pid, category.getPid()).lt(Category.F_sort, category.getSort()).desc(Category.F_sort).limit(0, 1);
 		}
 		Category switchCategory = this.get(q);
 		if (switchCategory == null){
